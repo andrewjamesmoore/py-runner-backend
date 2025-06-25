@@ -3,3 +3,7 @@ __pycache__/
 *.pyo
 *.pyd
 .env
+# Python virtual environments
+venv/
+env/
+.venv/
