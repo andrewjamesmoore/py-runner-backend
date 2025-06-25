@@ -1,0 +1,14 @@
+[
+  {
+    "category": "strings",
+    "function": "split",
+    "example": "my_string.split(',')",
+    "description": "Splits a string by a delimiter and returns a list"
+  },
+  {
+    "category": "lists",
+    "function": "append",
+    "example": "my_list.append(5)",
+    "description": "Appends an item to a list"
+  }
+]
