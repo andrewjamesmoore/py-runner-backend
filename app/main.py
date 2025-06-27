@@ -11,6 +11,17 @@ load_dotenv()
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # <-- Your frontend port
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 client = MongoClient(os.getenv("MONGODB_URI"))
 db = client["py_runner_data"]
 
@@ -31,7 +42,9 @@ def get_examples():
 
 @app.get("/functions")
 def get_functions():
+    print("Hit /functions route")
     return list(db["builtin_functions"].find({}, {"_id": 0}))
+
 
 @app.get("/methods")
 def get_methods():
