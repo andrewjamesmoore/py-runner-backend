@@ -1,11 +1,18 @@
 from fastapi import FastAPI
+from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 from pydantic import BaseModel
 from typing import List
-from .functions import BUILTIN_FUNCTIONS
 import json
 from pathlib import Path
 
+load_dotenv()
+
 app = FastAPI()
+
+client = MongoClient(os.getenv("MONGODB_URI"))
+db = client["py_runner_data"]
 
 class PythonFunction(BaseModel):
     name: str
@@ -22,6 +29,10 @@ def get_examples():
     with open(data_path) as f:
         return json.load(f)
 
-@app.get("/functions", response_model=List[PythonFunction], tags=["Functions"])
+@app.get("/functions")
 def get_functions():
-    return BUILTIN_FUNCTIONS
+    return list(db["builtin_functions"].find({}, {"_id": 0}))
+
+@app.get("/methods")
+def get_methods():
+    return list(db["methods"].find({}, {"_id": 0}))
