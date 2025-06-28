@@ -9,4 +9,17 @@ env/
 .venv/
 mongo-data/
 certbot/
+# Terraform state
+*.tfstate
+*.tfstate.backup
 
+# Terraform working directory
+.terraform/
+
+# Secrets (if any)
+*.tfvars
+
+# OS/Editor files
+.DS_Store
+.idea/
+.vscode/
