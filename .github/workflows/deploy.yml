@@ -1,0 +1,20 @@
+name: Test SSH Connection
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Connect to EC2 and test
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@44.204.12.210 'echo "Connected to EC2"'
