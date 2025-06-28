@@ -24,7 +24,7 @@ jobs:
       - name: Connect to EC2 and Deploy
         run: |
           ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-            cd ~/py-runner-backend
+            cd ~/py-runner/py-runner-backend
             git pull origin main
             docker compose -f docker-compose.yml down
             docker compose -f docker-compose.yml up --build -d
