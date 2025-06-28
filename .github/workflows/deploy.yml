@@ -1,20 +1,31 @@
-name: Test SSH Connection
+name: Deploy Backend to EC2
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  test-ssh:
+  deploy:
+    name: SSH into EC2 and Deploy Backend
     runs-on: ubuntu-latest
 
     steps:
-      - name: Add SSH key
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Connect to EC2 and test
+      - name: Connect to EC2 and Deploy
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@44.204.12.210 'echo "Connected to EC2"'
+          ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            cd ~/py-runner-backend
+            git pull origin main
+            docker compose -f docker-compose.yml down
+            docker compose -f docker-compose.yml up --build -d
+          EOF
