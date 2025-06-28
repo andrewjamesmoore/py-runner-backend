@@ -26,6 +26,6 @@ jobs:
           ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
             cd ~/py-runner/py-runner-backend
             git pull origin main
-            docker compose -f docker-compose.yml down
-            docker compose -f docker-compose.yml up --build -d
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up --build -d --remove-orphans
           EOF
