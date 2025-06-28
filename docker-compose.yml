@@ -20,19 +20,22 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-    depends_on:
-      - backend
+nginx:
+  build:
+    context: ./nginx
+    dockerfile: Dockerfile
+  container_name: nginx
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - certbot-etc:/etc/letsencrypt
+    - certbot-webroot:/var/www/certbot
+    - ./nginx:/etc/nginx/conf.d
+  depends_on:
+    - backend
 
 volumes:
+  certbot-etc:
+  certbot-webroot:
   mongo-data:
-
