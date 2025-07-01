@@ -36,7 +36,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "backend_ec2" {
-  ami           = data.aws_ami.amazon_linux.id
+  ami           = "ami-020cba7c55df1f615"
   instance_type = "t2.micro"
 
   tags = {
