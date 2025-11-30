@@ -67,10 +67,6 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the application using the server defined by the project. The repository's `Dockerfile` or files in `app/` usually reveal the intended command. Common examples:
-
-Replace the module path above with the actual entrypoint used in this repo.
-
 ## Security and limits
 
 * Treat `SECRET_KEY` and DB credentials as secrets — do not commit them to source control.
