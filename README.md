@@ -2,6 +2,8 @@
 
 Backend services for PyRunner — the server-side components that support the PyRunner frontend. This repository contains the application code, a Dockerfile, a `docker-compose.yml` for local development, an Nginx configuration, and Terraform scripts for infrastructure provisioning.
 
+See the frontend repo here: [https://github.com/andrewjamesmoore/py-runner](https://github.com/andrewjamesmoore/py-runner)
+
 ## Table of contents
 
 * [About](#about)
